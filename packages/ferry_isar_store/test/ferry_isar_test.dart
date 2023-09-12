@@ -1,10 +1,10 @@
-import 'package:ferry_isar_store/src/ferry_cache.dart';
 import 'package:isar/isar.dart';
 import 'package:test/test.dart';
 
 import 'package:ferry_isar_store/ferry_isar_store.dart';
 
-void main() {
+void main() async {
+  await Isar.initialize('.');
   Isar.open(
     schemas: [
       FerryCacheSchema,
@@ -16,7 +16,7 @@ void main() {
     test('starts empty', () async {
       final isar = Isar.get(schemas: [FerryCacheSchema]);
       isar.clear();
-      final store = IsarStore();
+      final store = IsarStore(isar);
 
       expect(store.keys.length, equals(0));
     });
@@ -35,7 +35,7 @@ void main() {
 
       final isar = Isar.get(schemas: [FerryCacheSchema]);
       isar.clear();
-      final store = IsarStore();
+      final store = IsarStore(isar);
       store.putAll(data);
 
       for (var entry in data.entries) {
@@ -58,7 +58,7 @@ void main() {
 
       final isar = Isar.get(schemas: [FerryCacheSchema]);
       isar.clear();
-      final store = IsarStore();
+      final store = IsarStore(isar);
       store.putAll(data);
 
       for (var entry in data.entries) {
@@ -81,7 +81,7 @@ void main() {
 
       final isar = Isar.get(schemas: [FerryCacheSchema]);
       isar.clear();
-      final store = IsarStore();
+      final store = IsarStore(isar);
 
       for (var entry in data.entries) {
         store.put(entry.key, entry.value);
@@ -107,7 +107,7 @@ void main() {
 
       final isar = Isar.get(schemas: [FerryCacheSchema]);
       isar.clear();
-      final store = IsarStore();
+      final store = IsarStore(isar);
 
       store.putAll(data);
 
@@ -131,7 +131,7 @@ void main() {
 
       final isar = Isar.get(schemas: [FerryCacheSchema]);
       isar.clear();
-      final store = IsarStore();
+      final store = IsarStore(isar);
       store.putAll(data);
 
       final key = store.keys.first;
@@ -158,7 +158,7 @@ void main() {
 
       final isar = Isar.get(schemas: [FerryCacheSchema]);
       isar.clear();
-      final store = IsarStore();
+      final store = IsarStore(isar);
       store.putAll(data);
 
       store.clear();
@@ -182,7 +182,7 @@ void main() {
 
       final isar = Isar.get(schemas: [FerryCacheSchema]);
       isar.clear();
-      final store = IsarStore();
+      final store = IsarStore(isar);
       store.putAll(data);
 
       expect(store.watch(data.keys.first), emits(data.values.first));
@@ -203,7 +203,7 @@ void main() {
 
       final isar = Isar.get(schemas: [FerryCacheSchema]);
       isar.clear();
-      final store = IsarStore();
+      final store = IsarStore(isar);
       store.putAll(data);
 
       final newData = {
@@ -239,7 +239,7 @@ void main() {
 
       final isar = Isar.get(schemas: [FerryCacheSchema]);
       isar.clear();
-      final store = IsarStore();
+      final store = IsarStore(isar);
       store.putAll(data);
 
       final newData = {
@@ -275,7 +275,7 @@ void main() {
 
       final isar = Isar.get(schemas: [FerryCacheSchema]);
       isar.clear();
-      final store = IsarStore();
+      final store = IsarStore(isar);
       store.putAll(data);
 
       expect(
@@ -306,7 +306,7 @@ void main() {
 
       final isar = Isar.get(schemas: [FerryCacheSchema]);
       isar.clear();
-      final store = IsarStore();
+      final store = IsarStore(isar);
       store.putAll(data);
 
       final newPostKey = 'Post:456';

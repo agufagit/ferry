@@ -21,3 +21,39 @@
 [discord-link]: https://discord.gg/QRTfXE
 
 A Store implementation that uses `isar` to persist data.
+
+# Usage
+
+```dart
+import 'package:isar/isar.dart';
+import 'package:ferry_isar_store/ferry_isar_store.dart';
+import 'graphql/__generated__/schema.schema.gql.dart' show possibleTypesMap;
+
+// call this in main() or beginning of an isolate
+Isar.open(
+  schemas: [
+    ...
+    FerryCacheSchema,
+  ],
+  directory: await getApplicationDocumentsDirectory(),
+);
+
+// call this when create ferry client
+final isar = Isar.get(schemas: [FerryCacheSchema]);
+final cache = Cache(store: IsarStore(isar), possibleTypes: possibleTypesMap);
+
+final link = Link.from([...]);
+
+final client = LinkClient(
+  link: link,
+  cache: cache,
+);
+```
+
+# Multiple Isolates
+
+Needs to call `Isar.open` for every isolate
+
+# Multiple stores
+
+Needs to call `Isar.open(schemas: [...], directory: ...)` with different directory value to create different store
