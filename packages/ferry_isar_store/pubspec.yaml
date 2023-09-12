@@ -1,0 +1,14 @@
+name: ferry_isar_store
+description: Isar-based Store implementation for Ferry GraphQL client
+version: 0.1.0
+homepage: https://ferrygraphql.com/
+repository: https://github.com/gql-dart/ferry
+environment:
+  sdk: '>=3.1.0 <4.0.0'
+dependencies:
+  ferry_store: ^0.5.3
+  isar: ^4.0.0-dev.14
+dev_dependencies:
+  test: ^1.16.8
+  pedantic: ^1.11.0
+  build_runner: any
